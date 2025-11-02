@@ -1,0 +1,11 @@
+
+services:
+  - type: web
+    name: harish-cartoon-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: REPLICATE_API_TOKEN
+        value: ${REPLICATE_API_TOKEN}
