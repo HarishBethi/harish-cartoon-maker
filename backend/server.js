@@ -3,23 +3,33 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
 app.use(cors());
-app.use(bodyParser.json({ limit: "10mb" }));
-app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb" }));  // increase size limit
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
-// Test route
+// Simple test route
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
-// Example endpoint your frontend can call
-app.post("/api/convert", (req, res) => {
-  // TODO: Handle image or call AI API here
-  res.json({ message: "Image received successfully!" });
+// POST route for your convert API
+app.post("/api/convert", async (req, res) => {
+  try {
+    const { image, style } = req.body;
+
+    if (!image) {
+      return res.status(400).json({ error: "No image provided" });
+    }
+
+    // TODO: your AI/cartoonify logic goes here
+    // For now, just send back the same image to test
+    res.json({ result: image });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Render needs a dynamic port
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
