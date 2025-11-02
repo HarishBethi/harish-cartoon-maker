@@ -36,17 +36,18 @@ export default function App(){
     try{
       const image = await fileToBase64(file)
       const a = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/convert`, {
-        method:'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify({ image, style })
-      })
-      if(!resp.ok){
-        const txt = await resp.text()
-        throw new Error(txt || 'Server error')
-      }
-      const body = await resp.json()
-      if(body.output) setResultUrl(body.output)
-      else throw new Error('No output from server')
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ image, style })
+});
+
+if (!a.ok) {
+  const txt = await a.text();
+  throw new Error(txt || 'Server error');
+}
+const body = await a.json();
+if (body.output) setResultUrl(body.output);
+else throw new Error('No output from server');
     }catch(err){
       console.error(err)
       setError(err.message || 'Conversion failed')
