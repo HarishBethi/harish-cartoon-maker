@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 
-const BACKEND = import.meta.env.VITE_BACKEND_URL || 'https://harish-cartoon-backend.onrender.com'
+const BACKEND = import.meta.env.VITE_BACKEND_URL || 'https://harish-cartoon-maker-1.onrender.com';
 
 export default function App(){
   const [file, setFile] = useState(null)
