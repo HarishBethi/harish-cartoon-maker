@@ -23,14 +23,14 @@ app.post("/api/convert", async (req, res) => {
       return res.status(400).json({ error: "No image provided" });
     }
 
-    // Temporary: Just echo back the input image to confirm communication
+    // ✅ Temporary: Just echo back the input image to confirm connection
     res.json({
       message: "Image received successfully!",
       style: style || "default",
-      result: image, // same image, just to test response
+      result: image, // same image — just to test connection
     });
-  } catch (err) {
-    console.error("Error in /api/convert:", err);
+  } catch (error) {
+    console.error("Error in /api/convert:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
