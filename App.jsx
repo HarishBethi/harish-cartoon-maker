@@ -35,7 +35,7 @@ export default function App(){
     setLoading(true); setError(null); setResultUrl(null)
     try{
       const image = await fileToBase64(file)
-      const resp = await fetch(BACKEND + '/api/convert', {
+      const a = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/convert`, {
         method:'POST',
         headers: { 'Content-Type':'application/json' },
         body: JSON.stringify({ image, style })
