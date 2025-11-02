@@ -17,41 +17,23 @@ if(!REPLICATE_TOKEN){
   console.warn('Warning: REPLICATE_API_TOKEN not set. Set it in Render environment variables.');
 }
 
-app.post('/api/convert', async (req, res) => {
-  try{
+app.post("/api/convert", async (req, res) => {
+  try {
     const { image, style } = req.body;
-    if(!image) return res.status(400).json({ error: 'No image provided' });
 
-    const model = style === 'sketch' ? MODEL_SKETCH : MODEL_CARTOONIFY;
-
-    const headers = {
-      'Authorization': `Token ${REPLICATE_TOKEN}`,
-      'Content-Type': 'application/json'
-    };
-
-    const createResp = await axios.post('https://api.replicate.com/v1/predictions', {
-      version: model,
-      input: { image }
-    }, { headers });
-
-    let prediction = createResp.data;
-    // poll
-    while(prediction.status !== 'succeeded' && prediction.status !== 'failed'){
-      await new Promise(r => setTimeout(r, 1500));
-      const poll = await axios.get(`https://api.replicate.com/v1/predictions/${prediction.id}`, { headers });
-      prediction = poll.data;
+    if (!image) {
+      return res.status(400).json({ error: "No image provided" });
     }
 
-    if(prediction.status === 'succeeded'){
-      const out = prediction.output;
-      const outputUrl = Array.isArray(out) ? out[0] : out;
-      return res.json({ output: outputUrl });
-    } else {
-      return res.status(500).json({ error: 'Prediction failed', details: prediction });
-    }
-  }catch(err){
-    console.error(err.response?.data || err.message || err);
-    return res.status(500).json({ error: 'Server error', details: err.response?.data || err.message });
+    // ✅ Just a placeholder response for now:
+    res.json({
+      message: "Image received successfully!",
+      output: image, // <-- must exist for frontend
+      style: style || "default"
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
