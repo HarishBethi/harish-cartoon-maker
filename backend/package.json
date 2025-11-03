@@ -2,7 +2,13 @@
   "name": "harish-cartoon-maker-backend",
   "version": "1.0.0",
   "main": "server.js",
+ {
   "type": "module",
+  "name": "test-project",
+  "version": "1.0.0",
+  "main": "test.js"
+}
+
   "scripts": {
     "start": "node server.js"
   },
