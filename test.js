@@ -1,5 +1,7 @@
 import Replicate from "replicate";
-import "dotenv/config";
+import 'dotenv/config'; // if using ES modules
+// OR if you're using require syntax:
+require('dotenv').config({ path: './backend/.env' });
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
