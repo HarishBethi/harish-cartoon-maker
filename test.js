@@ -1,21 +1,20 @@
 import dotenv from "dotenv";
 import Replicate from "replicate";
 
-// Load .env file
 dotenv.config({ path: "C:/Users/CHIST/backend/.env" });
+
+console.log("Loaded token:", process.env.REPLICATE_API_TOKEN?.slice(0, 10) + "...");
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-console.log("Your token is:", process.env.REPLICATE_API_TOKEN); // Optional check
+async function runModel() {
+  const output = await replicate.run(
+    "black-forest-labs/flux-schnell",
+    { input: { prompt: "a cute cartoon cat" } }
+  );
+  console.log(output);
+}
 
-// Example test call
-(async () => {
-  try {
-    const models = await replicate.models.list();
-    console.log("Connected successfully ✅");
-  } catch (err) {
-    console.error("Error:", err.message);
-  }
-})();
+runModel();
