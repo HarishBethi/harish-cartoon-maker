@@ -1,5 +1,8 @@
-import dotenv from "dotenv";
+import 'dotenv/config';
+import Replicate from "replicate";
 
-dotenv.config({ path: "C:/Users/CHIST/backend/.env" });
+const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN,
+});
 
-console.log("✅ Token from .env:", process.env.REPLICATE_API_TOKEN);
+console.log("Loaded token:", process.env.REPLICATE_API_TOKEN ? "✅ Found" : "❌ Not found");
