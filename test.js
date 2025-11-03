@@ -6,14 +6,16 @@ const replicate = new Replicate({
 });
 
 async function runModel() {
-  const output = await replicate.run(
-    "tstramer/mo-di-diffusion:YOUR_MODEL_VERSION_ID",
-    {
-      input: {
-        prompt: "A cute Disney-style cartoon tiger with rainbow colors",
-      },
+ const output = await replicate.run(
+  "stability-ai/sdxl:610dddf033f10431b155f24510b609fcbca23017ee551a1b9afbc4eec79e29c",
+  {
+    input: {
+      prompt: "A cute cartoon-style portrait of a person",
+      width: 1024,
+      height: 1024
     }
-  );
+  }
+);
 
   console.log(output);
 }
