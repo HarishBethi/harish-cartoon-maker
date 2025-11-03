@@ -1,27 +1,22 @@
+// Load .env file manually from backend folder
+import dotenv from "dotenv";
+dotenv.config({ path: "C:/Users/CHIST/backend/.env" });
+
 import Replicate from "replicate";
-import 'dotenv/config'; // if using ES modules
-// OR if you're using require syntax:
-require('dotenv').config({ path: './backend/.env' });
-console.log("Token loaded:", process.env.REPLICATE_API_TOKEN ? "✅ Yes" : "❌ No");
 
+console.log("Loaded token:", process.env.REPLICATE_API_TOKEN ? "✅ Found" : "❌ Missing");
 
+// Initialize Replicate
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
+// Example call to test your setup
 async function runModel() {
- const output = await replicate.run(
-  "stability-ai/sdxl:610dddf033f10431b155f24510b609fcbca23017ee551a1b9afbc4eec79e29c",
-  {
-    input: {
-      prompt: "A cute cartoon-style portrait of a person",
-      width: 1024,
-      height: 1024
-    }
-  }
-);
-
-  console.log(output);
+  const result = await replicate.run("stability-ai/sdxl:latest", {
+    input: { prompt: "a cute cartoon cat" },
+  });
+  console.log(result);
 }
 
 runModel();
